@@ -1,0 +1,37 @@
+# This file is part of the UnleashWP Code Examples.
+# Copyright (C) 2025 Benjamin Zekavica
+#
+# Licensed under the GNU GPL v3 or later.
+# See <https://www.gnu.org/licenses/>
+
+name: Release (Build + Changelog)
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract version from tag
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_ENV
+
+      - name: Build changelog from PRs
+        id: cl
+        uses: mikepenz/release-changelog-builder-action@v4
+        with:
+          configuration: .github/changelog-config.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Save versioned changelog
+        run: |
+          mkdir -p dist
+          printf "%s\n" "${{ steps.cl.outputs.changelog }}" > "dist/CHANGELOG-${VERSION}.md"

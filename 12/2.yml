@@ -1,0 +1,38 @@
+# This file is part of the UnleashWP Code Examples.
+# Copyright (C) 2025 Benjamin Zekavica
+#
+# Licensed under the GNU GPL v3 or later.
+# See <https://www.gnu.org/licenses/>
+
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      - name: Install PHP dependencies
+        run: composer install --no-dev
+
+      - name: Build frontend
+        run: npm ci && npm run build
+
+      - name: Setup SSH
+        uses: webfactory/ssh-agent@v0.5.4
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY }}
+
+      - name: Deploy to production
+        run: vendor/bin/dep deploy production
+        env:
+          DEPLOYER_HOST: ${{ secrets.DEPLOYER_HOST }}

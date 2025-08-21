@@ -1,0 +1,9 @@
+{
+  "template": "# Changelog\n\n${{CHANGELOG}}\n",
+  "categories": [
+    { "title": "Features", "labels": ["feature", "enhancement"] },
+    { "title": "Fixes", "labels": ["fix", "bug"] },
+    { "title": "Chores", "labels": ["chore", "refactor"] }
+  ],
+  "pr_template": "- ${{TITLE}} (#${{NUMBER}})"
+}

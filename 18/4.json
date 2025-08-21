@@ -1,0 +1,11 @@
+{
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:your-org/your-plugin.git"
+    }
+  ],
+  "require": {
+    "your-org/your-plugin": "^1.5"
+  }
+}

@@ -1,0 +1,25 @@
+# This file is part of the UnleashWP Code Examples.
+# Copyright (C) 2025 Benjamin Zekavica
+#
+# Licensed under the GNU GPL v3 or later.
+# See <https://www.gnu.org/licenses/>
+
+name: Daily Maintenance
+
+on:
+  schedule:
+    - cron: "0 2 * * *" # Runs daily at 2 AM UTC
+
+jobs:
+  maintenance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+
+      - name: Run maintenance playbook
+        run: bash bin/maintenance.sh

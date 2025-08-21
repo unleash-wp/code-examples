@@ -1,0 +1,13 @@
+{
+  "name": "Agency Packages",
+  "homepage": "https://packages.example.com",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:agency/plugin-core.git"
+    }
+  ],
+  "require": {
+    "agency/plugin-core": "*"
+  }
+}

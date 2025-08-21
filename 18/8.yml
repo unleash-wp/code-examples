@@ -1,0 +1,17 @@
+# This file is part of the UnleashWP Code Examples.
+# Copyright (C) 2025 Benjamin Zekavica
+#
+# Licensed under the GNU GPL v3 or later.
+# See <https://www.gnu.org/licenses/>
+
+- name: Append first PR line (optional)
+  uses: actions/github-script@v7
+  id: prLine
+  with:
+    script: |
+      // Example: extract first PR title (requires context.payload)
+      core.setOutput('extra', '');
+
+- name: Save with extra
+  run: |
+    printf "%s\n\n%s\n" "${{ steps.cl.outputs.changelog }}" "${{ steps.prLine.outputs.extra }}" > "dist/CHANGELOG-${{VERSION}}.md"

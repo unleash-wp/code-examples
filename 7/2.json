@@ -1,0 +1,11 @@
+{
+    "name": "vendor/package",
+    "require": {
+        "php": "^8.1"
+    },
+    "scripts": {
+        "lint": "phpcs --standard=PSR12 src/",
+        "analyze": "phpstan analyse src/ --level=5",
+        "test": "phpunit"
+    }
+}
